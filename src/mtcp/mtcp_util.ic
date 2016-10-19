@@ -28,7 +28,9 @@
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
+#ifndef __APPLE__
 #include <sys/sysmacros.h>
+#endif
 #include <limits.h>
 
 #include "mtcp_util.h"

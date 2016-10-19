@@ -6774,22 +6774,22 @@ $as_echo "no" >&6; }
 fi
 
 
-
 #if /usr/include/linux/version.h is missing, give up on configuring.
-#for ac_header in linux/version.h
-#do :
-#  ac_fn_c_check_header_mongrel "$LINENO" "linux/version.h" "ac_cv_header_linux_version_h" "$ac_includes_default"
-#if test "x$ac_cv_header_linux_version_h" = xyes; then :
-#  cat >>confdefs.h <<_ACEOF
-##define HAVE_LINUX_VERSION_H 1
-#_ACEOF
+if ! [[ $OSTYPE == *darwin* ]]; then
+for ac_header in linux/version.h
+do :
+  ac_fn_c_check_header_mongrel "$LINENO" "linux/version.h" "ac_cv_header_linux_version_h" "$ac_includes_default"
+if test "x$ac_cv_header_linux_version_h" = xyes; then :
+  cat >>confdefs.h <<_ACEOF
+define HAVE_LINUX_VERSION_H 1
+_ACEOF
 
-#else
-#  as_fn_error $? "#include: <linux/version.h> not found: consider adding linux-libc-dev pkg
-#    " "$LINENO" 5
-#fi
-#
-#done
+else
+  as_fn_error $? "#include: <linux/version.h> not found: consider adding linux-libc-dev pkg
+    " "$LINENO" 5
+fi
+done
+fi
 
 
 #check for gzip utility
