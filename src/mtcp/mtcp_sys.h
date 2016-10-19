@@ -52,13 +52,13 @@
 #define _MTCP_SYS_H
 
 #include <stdio.h>
-#include <asm/unistd.h>
+// #include <asm/unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/mman.h>
-#include <linux/version.h>
+// #include <linux/version.h>
 #include <sys/syscall.h>  /* For SYS_xxx definitions needed in expansions. */
 
 // Source code is taken from:  glibc-2.5/sysdeps/generic
@@ -191,7 +191,9 @@ extern int mtcp_sys_errno;
 
 // #include <sysdeps/unix/x86_64/sysdep.h>  is not needed.
 // translate __NR_getpid to syscall # using i386 or x86_64
+#ifndef __APPLE__
 #include <asm/unistd.h>
+#endif
 
 /* getdents() fills up the buffer not with 'struct dirent's as might be
  * expected, but with custom 'struct linux_dirent's.  This structure, however,
@@ -264,8 +266,8 @@ struct linux_dirent {
 # define mtcp_sys_fork(args...)   mtcp_inline_syscall(fork,0)
 #endif
 #define mtcp_sys_vfork(args...)   mtcp_inline_syscall(vfork,0)
-#define mtcp_sys_execve(args...)  mtcp_inline_syscall(execve,3,args)
 #define mtcp_sys_wait4(args...)  mtcp_inline_syscall(wait4,4,args)
+#define mtcp_sys_execve(args...)  mtcp_inline_syscall(execve,3,args)
 #define mtcp_sys_gettimeofday(args...)  mtcp_inline_syscall(gettimeofday,2,args)
 #if defined(__i386__) || defined(__x86_64__) || defined(__aarch64__)
 # define mtcp_sys_mmap(args...)  (void *)mtcp_inline_syscall(mmap,6,args)
